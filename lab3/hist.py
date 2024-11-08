@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-
 def create_hist(image: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Generates histograms for each color channel in the image.
