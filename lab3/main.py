@@ -20,8 +20,8 @@ def main():
         display_image("Измененное изображение", resized_image)
 
         save_image(args.output_path, resized_image)
-    except (FileNotFoundError, ValueError) as e:
-        print(e)
+    except Exception as e:
+        print(f"Найдена ошибка: {e}")
 
 
 if __name__ == "__main__":
