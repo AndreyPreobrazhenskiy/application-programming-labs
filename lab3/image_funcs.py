@@ -10,14 +10,10 @@ def load_image(input_path: str) -> np.ndarray:
     :param input_path: Path to the input image file.
     :return: The loaded image as a NumPy array.
     """
-    try:
-        image = cv2.imread(input_path)
-        if image is None:
-            raise FileNotFoundError(f"Ошибка: не удалось загрузить изображение в: '{input_path}'.")
-        return image
-    except Exception as e:
-        print(f"Не удалось загрузить изображение: {e}")
-        raise
+    image = cv2.imread(input_path)
+    if image is None:
+        raise FileNotFoundError(f"Ошибка: не удалось загрузить изображение в: '{input_path}'.")
+    return image
 
 
 def display_image(title: str, image: np.ndarray) -> None:
@@ -35,7 +31,7 @@ def display_image(title: str, image: np.ndarray) -> None:
         plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         plt.show()
     except Exception as e:
-        print(f"Не удалось вывести изображение  '{title}': {e}")
+        raise RuntimeError(f"Не удалось вывести изображение  '{title}'") from e
 
 
 def resize_image(image: np.ndarray, width: int, height: int) -> np.ndarray:
@@ -51,8 +47,7 @@ def resize_image(image: np.ndarray, width: int, height: int) -> np.ndarray:
         resized_image = cv2.resize(image, (width, height))
         return resized_image
     except Exception as e:
-        print(f"Не удалось поменять разрешение изображение на {width}x{height}: {e}")
-        raise
+        raise ValueError(f"Не удалось поменять разрешение изображение на {width}x{height}") from e
 
 
 def save_image(output_path: str, image: np.ndarray) -> None:
@@ -62,10 +57,6 @@ def save_image(output_path: str, image: np.ndarray) -> None:
     :param output_path: Path to save the output image.
     :param image: The image to save.
     """
-    try:
-        success = cv2.imwrite(output_path, image)
-        if not success:
-            raise IOError(f"Не удалось сохранить изображение в '{output_path}'.")
-    except Exception as e:
-        print(f"Не удалось сохранить изображение: {e}")
-        raise
+    success = cv2.imwrite(output_path, image)
+    if not success:
+        raise IOError(f"Не удалось сохранить изображение в '{output_path}'.")
