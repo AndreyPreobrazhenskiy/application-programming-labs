@@ -16,8 +16,7 @@ def create_hist(image: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         hist_r = cv2.calcHist([image], [2], None, [256], [0, 256])
         return hist_b, hist_g, hist_r
     except Exception as e:
-        print(f"Не удалось создать гистограмму: {e}")
-        raise
+        raise RuntimeError(f"Не удалось создать гистограмму") from e
 
 
 def display_hist(hist_b: np.ndarray, hist_g: np.ndarray, hist_r: np.ndarray) -> None:
@@ -41,4 +40,4 @@ def display_hist(hist_b: np.ndarray, hist_g: np.ndarray, hist_r: np.ndarray) -> 
         plt.legend()
         plt.show()
     except Exception as e:
-        print(f"Не удалось вывести гистограмму: {e}")
+        raise RuntimeError(f"Не удалось вывести гистограмму") from e
